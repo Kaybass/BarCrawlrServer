@@ -6,7 +6,7 @@ class plan:
 
     def __init__(self,thePlan):
         
-        Plan = json.load(thePlan)
+        Plan = json.loads(thePlan)
 
         self.name = Plan["Name"]
 
@@ -20,5 +20,5 @@ class plan:
 
     def jsonify(self):
 
-        return ""
+        return "Plan Name: " + self.name + "\nAddress: " + self.address + "\nLocation: [" + str(self.lat) + ", " + str(self.lon) + "]\nNotes: " + self.note
         
