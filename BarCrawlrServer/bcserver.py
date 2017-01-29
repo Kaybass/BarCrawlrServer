@@ -25,6 +25,12 @@ def create_plan():
 def get_all_plans():
     return jsonify({'plan 1': plans['plan'].jsonify()})
 
+# Get a specific plan using a plan id number from plans list
+@server.route('/plan/<int:plan_id>',methods=['GET'])
+def get_plan(plan_id):
+    if 0 <= plan_id < len(plans):
+        abort(400)
+    return plans[plan_id].jsonify()
 
 if __name__ == '__main__':
     server.run(debug=True)
