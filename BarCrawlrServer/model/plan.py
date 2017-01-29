@@ -20,5 +20,7 @@ class plan:
 
     def jsonify(self):
 
-        return "Plan Name: " + self.name + "\nAddress: " + self.address + "\nLocation: [" + str(self.lat) + ", " + str(self.lon) + "]\nNotes: " + self.note
-        
+                return "Plan Name: " + self.name + \
+                 ", Address: " + self.address +\
+                 ", Location: [" + str(self.lat) + \
+                ", " + str(self.lon) + "], Notes: " + self.note
