@@ -4,12 +4,9 @@ from BarCrawlrServer.model.plan import plan
 
 server = Flask(__name__)
 
-plans = \
-    {
-        'id':0,
-        'plan': plan('{"Name":"test_plan_1","Address":"Oceanic location","Location":[0,0],"Note":"Test plan for testing"}')
-    }
-
+plans = [
+    plan('{"Name":"test_plan_1","Address":"Oceanic location","Location":[0,0],"Note":"Test plan for testing"}')
+]
 
 @server.route('/')
 def index():
