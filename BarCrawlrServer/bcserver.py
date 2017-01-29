@@ -32,5 +32,10 @@ def get_plan(plan_id):
         abort(400)
     return plans[plan_id].jsonify()
 
+# 404 Error Handler
+@server.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
 if __name__ == '__main__':
     server.run(debug=True)
