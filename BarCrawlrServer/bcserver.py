@@ -1,11 +1,12 @@
-from flask import Flask, jsonify, current_app, make_response
+from flask import Flask, jsonify, current_app, make_response, abort
 
 from BarCrawlrServer.model.plan import plan
 
 server = Flask(__name__)
 
 plans = [
-    plan('{"Name":"test_plan_1","Address":"Oceanic location","Location":[0,0],"Note":"Test plan for testing"}')
+    plan('{"Name":"test_plan_1","Address":"Oceanic location","Location":[0,0],"Note":"Test plan for testing"}'),
+    plan('{"Name":"test_plan_2","Address":"Oceanic location","Location":[0,0],"Note":"Second test plan for testing"}')
 ]
 
 @server.route('/')
@@ -28,7 +29,7 @@ def get_all_plans():
 # Get a specific plan using a plan id number from plans list
 @server.route('/plan/<int:plan_id>',methods=['GET'])
 def get_plan(plan_id):
-    if 0 <= plan_id < len(plans):
+    if len(plans) < plan_id or plan_id < 0:
         abort(400)
     return plans[plan_id].jsonify()
 
