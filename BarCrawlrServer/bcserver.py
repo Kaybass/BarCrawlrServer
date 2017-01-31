@@ -24,7 +24,10 @@ def create_plan():
 # Get all the plans from the plans list
 @server.route('/plans', methods=['GET'])
 def get_all_plans():
-    return jsonify({'plan 1': plans[0].jsonify()})
+    s = "All Plans:\n"
+    for plan in plans:
+        s += "\t" + plan.jsonify() + "\n"
+    return s
 
 # Get a specific plan using a plan id number from plans list
 @server.route('/plan/<int:plan_id>',methods=['GET'])
