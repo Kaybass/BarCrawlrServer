@@ -16,13 +16,25 @@ class plan:
         plan = json.loads(thePlan)
 
         self.name = plan["name"]
+
+        self.places = []
         
         for Place in plan["places"]:
-            self.places.append(Place)
+            self.places.append(place(Place["name"],\
+                                    Place["address"],\
+                                    Place["lon"],\
+                                    Place["lat"]))
 
     def jsonify(self):
 
         jsonToReturn = ""
 
-        jsonToReturn += '{"name
+        jsonToReturn += '{"name":"' + self.name + '","places":['
+
+        for Place in self.places:
+            jsonToReturn += Place.jsonify() + ','
+
+        jsonToReturn += ']}'
+
+        return jsonToReturn
                 
