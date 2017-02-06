@@ -1,5 +1,3 @@
-from flask import Flask, jsonify, current_app
-
 from BarCrawlrServer import bcserver
 
 

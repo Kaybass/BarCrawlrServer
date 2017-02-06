@@ -13,17 +13,21 @@ class plan:
 
     def __init__(self,thePlan):
 
-        plan = json.loads(thePlan)
+        try:
+            plan = json.loads(thePlan)
 
-        self.name = plan["name"]
+            self.name = plan["name"]
 
-        self.places = []
+            self.places = []
         
-        for Place in plan["places"]:
-            self.places.append(place(Place["name"],\
-                                    Place["address"],\
-                                    Place["lon"],\
-                                    Place["lat"]))
+            for Place in plan["places"]:
+                self.places.append(place(Place["name"],\
+                                        Place["address"],\
+                                        Place["lon"],\
+                                        Place["lat"]))
+        except(KeyError):
+            self.name = "INVALID PLAN"
+            self.places = []
 
     def jsonify(self):
 
