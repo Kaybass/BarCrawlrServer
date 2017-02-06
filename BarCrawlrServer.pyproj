@@ -12,7 +12,7 @@
     <OutputPath>.</OutputPath>
     <Name>BarCrawlrServer</Name>
     <RootNamespace>BarCrawlrServer</RootNamespace>
-    <InterpreterId>{e8298368-770d-4bfc-ad2b-2a368722d7ec}</InterpreterId>
+    <InterpreterId>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</InterpreterId>
     <InterpreterVersion>3.5</InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -24,6 +24,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BarCrawlrServer\model\place.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BarCrawlrServer\model\plan.py">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BarCrawlrServer\model\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BarCrawlrServer\utilities\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="test.py">
@@ -44,19 +50,11 @@
   <ItemGroup>
     <Folder Include="BarCrawlrServer\" />
     <Folder Include="BarCrawlrServer\model\" />
+    <Folder Include="BarCrawlrServer\utilities\" />
+    <Folder Include="BarCrawlrServerTest\" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="env\">
-      <Id>{e8298368-770d-4bfc-ad2b-2a368722d7ec}</Id>
-      <BaseInterpreter>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</BaseInterpreter>
-      <Version>3.5</Version>
-      <Description>env (Python 3.5)</Description>
-      <InterpreterPath>Scripts\python.exe</InterpreterPath>
-      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
-      <LibraryPath>Lib\</LibraryPath>
-      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
-      <Architecture>X86</Architecture>
-    </Interpreter>
+    <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\3.5" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
