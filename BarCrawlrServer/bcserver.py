@@ -1,13 +1,45 @@
+import json
+import sys
+
 from flask import Flask, jsonify, current_app, make_response, abort
 
 from BarCrawlrServer.model.plan import plan
 
+
+
 server = Flask(__name__)
 
+#Example plan data we will throw out eventually
 plans = [
-    plan('{"Name":"test_plan_1","Address":"Oceanic location","Location":[0,0],"Note":"Test plan for testing"}'),
+    plan("{" +\
+                "\"name\":\"Alex's Plan\"," +\
+                "\"places\":[" +\
+                "{" +\
+                "\"name\":\"Joe's Bar\"," +\
+                "\"address\":\"10 King's Street, Burlington, 05401 VT\"," +\
+                "\"lon\":0.0," +\
+                "\"lat\":0.0" +\
+                "}," +\
+                "{" +\
+                "\"name\":\"Bob's Bar\"," +\
+                "\"address\":\"11 King's Street, Burlington, 05401 VT\"," +\
+                "\"lon\":0.1," +\
+                "\"lat\":0.1" +\
+                "}" +\
+                "]," +\
+                "}"),\
     plan('{"Name":"test_plan_2","Address":"Oceanic location","Location":[0,0],"Note":"Second test plan for testing"}')
 ]
+
+#load settings
+
+APIKEY = ""
+with open('./settings/settings.json','r') as jsonFile:
+    try:
+        theJson = json.load(jsonFile)
+        APIKEY = theJson["apikey"]
+    except(KeyError, json.JSONDecodeError):
+        sys.exit("Settings file could not be loaded properly.")
 
 @server.route('/')
 def index():
@@ -30,8 +62,8 @@ def get_all_plans():
     return s
 
 # Get a specific plan using a plan id number from plans list
-@server.route('/plan/<int:plan_id>',methods=['GET'])
-def get_plan(plan_id):
+@server.route('/plan&code=<int:plan_id>&key=<string:apikey>',methods=['GET'])
+def get_plan(plan_id,apikey):
     if len(plans) < plan_id or plan_id < 0:
         abort(400)
     return plans[plan_id].jsonify()

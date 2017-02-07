@@ -25,7 +25,8 @@ class plan:
                                         Place["address"],\
                                         Place["lon"],\
                                         Place["lat"]))
-        except(KeyError):
+
+        except(KeyError, json.JSONDecodeError):
             self.name = "INVALID PLAN"
             self.places = []
 

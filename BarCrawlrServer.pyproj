@@ -50,11 +50,17 @@
   <ItemGroup>
     <Folder Include="BarCrawlrServer\" />
     <Folder Include="BarCrawlrServer\model\" />
+    <Folder Include="settings\" />
     <Folder Include="BarCrawlrServer\utilities\" />
     <Folder Include="BarCrawlrServerTest\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\3.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="settings\settings.json">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
