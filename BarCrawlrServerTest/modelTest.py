@@ -40,7 +40,7 @@ class Test_modelTest(unittest.TestCase):
     def test_plan(self):
         aPlan = plan(myPlan)
 
-        self.assertAlmostEquals(myPlan,aPlan.jsonify())
+        self.assertEquals(myPlan,aPlan.jsonify())
 
     def test_user(self):
         aUser = user("Alex",0,0)

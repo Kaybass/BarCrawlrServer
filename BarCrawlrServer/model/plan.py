@@ -40,8 +40,14 @@ class plan:
 
         jsonToReturn += '{"name":"' + self.name + '","places":['
 
+        i = 0
+
         for Place in self.places:
-            jsonToReturn += Place.jsonify() + ','
+            i += 1
+            if i < len(self.places):
+                jsonToReturn += Place.jsonify() + ','
+            else:
+                jsonToReturn += Place.jsonify()
 
         jsonToReturn += ']}'
 
