@@ -26,18 +26,21 @@ plans = [
                 "\"lon\":0.1," +\
                 "\"lat\":0.1" +\
                 "}" +\
-                "]," +\
+                "]" +\
                 "}"),\
     plan('{"Name":"test_plan_2","Address":"Oceanic location","Location":[0,0],"Note":"Second test plan for testing"}')
 ]
 
 #load settings
-
 APIKEY = ""
+
+#DEFAULT
+PORT = 4000
 with open('./settings/settings.json','r') as jsonFile:
     try:
         theJson = json.load(jsonFile)
         APIKEY = theJson["apikey"]
+        PORT = theJson["port"]
     except(KeyError, json.JSONDecodeError):
         sys.exit("Settings file could not be loaded properly.")
 
@@ -74,4 +77,4 @@ def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 if __name__ == '__main__':
-    server.run(debug=True)
+    server.run(port=PORT,debug=True)

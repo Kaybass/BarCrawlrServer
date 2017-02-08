@@ -14,7 +14,11 @@ class plan:
     def __init__(self,thePlan):
 
         try:
+            print(thePlan)
+
             plan = json.loads(thePlan)
+
+            print("meme")
 
             self.name = plan["name"]
 

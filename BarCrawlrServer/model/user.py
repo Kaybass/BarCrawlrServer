@@ -7,13 +7,13 @@ import json
  * "name" is a nick created by the user
  * "lon" and "lat" are the user's coords
 """
-class User:
+class user:
 
     def __init__(self,name,lon,lat):
 
         self.name = name
-        self.lon = lon
-        self.lat = lat
+        self.lon = float(lon)
+        self.lat = float(lat)
 
     def jsonify(self):
 

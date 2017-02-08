@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>fafa080b-7baa-4494-a7f3-d8ef9f2cda4a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test.py</StartupFile>
+    <StartupFile>runServer.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,6 +24,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BarCrawlrServerTest\modelTest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BarCrawlrServerTest\serverTest.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BarCrawlrServer\model\place.py">
       <SubType>Code</SubType>
     </Compile>
@@ -39,7 +45,7 @@
     <Compile Include="BarCrawlrServer\utilities\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="test.py">
+    <Compile Include="runServer.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BarCrawlrServer\__init__.py">
