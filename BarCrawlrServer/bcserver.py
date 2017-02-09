@@ -1,16 +1,18 @@
 import json
-import sys
 
-from flask import Flask, jsonify, current_app, make_response, abort
+import BarCrawlrServer.utilities.jankBox as jankBox
+import BarCrawlrServer.utilities.barJsons as barJsons
+
+from flask import Flask, jsonify, current_app, make_response, abort, request
 
 from BarCrawlrServer.model.plan import plan
-
+from BarCrawlrServer.model.user import user
 
 server = Flask(__name__)
 
-#Example plan data we will throw out eventually
-plans = [
-    plan("{" +\
+#Example plan/user data we will throw out eventually
+plans = {
+    'AdEc' : plan("{" +\
                 "\"name\":\"Alex's Plan\"," +\
                 "\"places\":[" +\
                 "{" +\
@@ -27,14 +29,19 @@ plans = [
                 "}" +\
                 "]" +\
                 "}")\
-]
-
-#load settings
+}
+users = {
+    'AdEc' : {
+        "Alex" : user("Alex",0.0,0.0),
+        "Joe" : user("Joe",0.1,0.1)
+    }
+}
+#DEFAULT SETTINGS
 APIKEY = "bingobangobongo"
 INDEX_MESSAGE = ""
-
-#DEFAULT
 PORT = 4000
+
+#load settings
 with open('./settings/settings.json','r') as jsonFile:
     try:
         theJson = json.load(jsonFile)
@@ -55,9 +62,13 @@ plan. This information will be then sent back to the user.
 
 If the plan is invalid it will return an error
 """
-@server.route('/addplan&key=<string:apikey>', methods=['POST'])
+@server.route('/addplan', methods=['POST'])
 def add_plan():
-    return "", 201
+    if apikey == APIKEY:
+        return "",201
+    else:
+        #Bad Key
+        return make_response(jsonify({'error': 'Bad API key'}), 400)
 
 
 """
@@ -67,13 +78,38 @@ This target allows other clients to connect to a plan that
 exists on the server
 
 If the plan exists on the server the client will be sent the
-list of users and the plan the code is attached to
+list of users and the plan the code is attached to. The Client'
+also has to sen their information
 
 If it fails the client will be returned an error
 """
-@server.route('/getplan&code=<string:plan_id>&key=<string:apikey>', methods=['GET'])
+@server.route('/getplan', methods=['GET'])
 def get_plan():
-    return ""
+
+    #url parameters
+    apikey = request.args.get('apikey')
+    plan_id = request.args.get('code')
+    user_nick = request.args.get('nick')
+    user_lon = request.args.get('lon')
+    user_lat = request.args.get('lat')
+
+    if apikey == APIKEY and plan_id in plans.keys():
+        return barJsons.createGetPlanJson(plans[plan_id],users[plan_id])
+
+    else:
+        #Errors
+
+        #Bad plan id
+        if apikey == APIKEY:
+            if plan_id not in plans.keys():
+                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
+
+        #Bad API key
+        else:
+            return make_response(jsonify({'error': 'Bad API key'}), 401)
+
+    #something went horribly wrong
+    abort(400)
 
 
 """
@@ -86,10 +122,37 @@ The user sends the code of their plan and their
 information through url parameters. They get sent
 the list of current user information if the plan exists
 """
-@server.route('/update&code=<string:plan_id>&nick=<string:user_nick>&key=<string:apikey>' +\
-                '&lon=<int:user_lon>&lat=<int:user_lat>', methods=['GET'])
+@server.route('/update', methods=['GET'])
 def update_info():
-    return ""
+
+    #url parameters
+    apikey = request.args.get('apikey')
+    plan_id = request.args.get('code')
+    user_nick = request.args.get('nick')
+    user_lon = request.args.get('lon')
+    user_lat = request.args.get('lat')
+
+    if apikey == APIKEY and plan_id in plans.keys()\
+        and user_nick in jankBox.getListOfNamesFromListOfUsers(users[plan_id]):
+
+        users[plan_id][user_nick].lon = float(user_lon)
+        users[plan_id][user_nick].lat = float(user_lat)
+        
+        return barJsons.createUsersJsonFromDict(users[plan_id])
+    else:
+        #Errors
+
+        #Bad plan id
+        if apikey == APIKEY:
+            if plan_id not in plans.keys():
+                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
+
+        #Bad API key
+        else:
+            return make_response(jsonify({'error': 'Bad API key'}), 401)
+
+    #something went horribly wrong
+    abort(400)
 
 
 """
@@ -100,9 +163,30 @@ of active users associated with the plan
 
 If there are no users left connected the plan will be deleted
 """
-@server.route('/disconnect&code=<string:plan_id>&nick=<string:user_nick>&key=<string:apikey>', methods=['GET'])
+@server.route('/disconnect', methods=['GET'])
 def user_disconnect():
-    return ""
+
+    #url parameters
+    apikey = request.args.get('apikey')
+    plan_id = request.args.get('code')
+    user_nick = request.args.get('nick')
+
+    if apikey == APIKEY and plan_id in plans.keys():
+        return ""
+    else:
+        #Errors
+
+        #Bad plan id
+        if apikey == APIKEY:
+            if plan_id not in plans.keys():
+                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
+
+        #Bad API key
+        else:
+            return make_response(jsonify({'error': 'Bad API key'}), 401)
+
+    #something went horribly wrong
+    abort(400)
 
 @server.route('/')
 def index():

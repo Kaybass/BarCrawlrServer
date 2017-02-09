@@ -14,11 +14,8 @@ class plan:
     def __init__(self,thePlan):
 
         try:
-            print(thePlan)
 
             plan = json.loads(thePlan)
-
-            print("meme")
 
             self.name = plan["name"]
 
@@ -39,9 +36,9 @@ class plan:
         jsonToReturn = ""
 
         jsonToReturn += '{"name":"' + self.name + '","places":['
-
+        
+        #This segment of code isn't the greatest
         i = 0
-
         for Place in self.places:
             i += 1
             if i < len(self.places):
