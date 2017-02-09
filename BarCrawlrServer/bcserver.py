@@ -188,6 +188,7 @@ def user_disconnect():
     #something went horribly wrong
     abort(400)
 
+#Index, returns a message about how there's no point in going there
 @server.route('/')
 def index():
     return INDEX_MESSAGE
@@ -197,29 +198,6 @@ def index():
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
+#Production deployment
 if __name__ == '__main__':
-    server.run(port=PORT,debug=True)
-
-#Old stuff
-## Post a new plan to the plans list
-#@server.route('/plan', methods=['POST'])
-#def create_plan():
-#    if not request.json or not 'Name' in request.json:
-#        abort(400)
-#    plans.append(plan(request.json))
-#    return jsonify({'plan': plan}), 201
-
-## Get all the plans from the plans list
-#@server.route('/plans', methods=['GET'])
-#def get_all_plans():
-#    s = "All Plans:\n"
-#    for plan in plans:
-#        s += "\t" + plan.jsonify() + "\n"
-#    return s
-
-## Get a specific plan using a plan id number from plans list
-#@server.route('/plan&code=<string:plan_id>&key=<string:apikey>',methods=['GET'])
-#def get_plan(plan_id,apikey):
-#    if len(plans) < plan_id or plan_id < 0:
-#        abort(400)
-#    return plans[plan_id].jsonify()
+    server.run(port=PORT,debug=False)
