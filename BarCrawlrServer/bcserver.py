@@ -1,6 +1,5 @@
 import json
 
-import BarCrawlrServer.utilities.jankBox as jankBox
 import BarCrawlrServer.utilities.barJsons as barJsons
 
 from flask import Flask, jsonify, current_app, make_response, abort, request
@@ -93,17 +92,21 @@ def get_plan():
     user_lon = request.args.get('lon')
     user_lat = request.args.get('lat')
 
-    if apikey == APIKEY and plan_id in plans.keys():
+    if apikey == APIKEY and plan_id in plans.keys() \
+        and user_nick != "" and user_nick not in users[plan_id].keys():
+
+        users[plan_id][user_nick] = user(user_nick,user_lon,user_lat)
         return barJsons.createGetPlanJson(plans[plan_id],users[plan_id])
 
     else:
         #Errors
-
         #Bad plan id
         if apikey == APIKEY:
             if plan_id not in plans.keys():
                 return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
-
+            #bad user id
+            else:
+                return make_response(jsonify({'error': 'Username already exists'}), 404)
         #Bad API key
         else:
             return make_response(jsonify({'error': 'Bad API key'}), 401)
@@ -133,7 +136,7 @@ def update_info():
     user_lat = request.args.get('lat')
 
     if apikey == APIKEY and plan_id in plans.keys()\
-        and user_nick in jankBox.getListOfNamesFromListOfUsers(users[plan_id]):
+        and user_nick in users[plan_id].keys():
 
         users[plan_id][user_nick].lon = float(user_lon)
         users[plan_id][user_nick].lat = float(user_lat)
@@ -141,11 +144,13 @@ def update_info():
         return barJsons.createUsersJsonFromDict(users[plan_id])
     else:
         #Errors
-
         #Bad plan id
         if apikey == APIKEY:
             if plan_id not in plans.keys():
                 return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
+            #bad user_id
+            else:
+                return make_response(jsonify({'error': 'Username doesn\'t exist'}), 404)
 
         #Bad API key
         else:
@@ -171,15 +176,27 @@ def user_disconnect():
     plan_id = request.args.get('code')
     user_nick = request.args.get('nick')
 
-    if apikey == APIKEY and plan_id in plans.keys():
-        return ""
+    if apikey == APIKEY and plan_id in plans.keys()\
+        and user_nick in users[plan_id].keys():
+
+        del users[plan_id][user_nick]
+
+        if len(users[plan_id]) == 0:
+            del plans[plan_id]
+            del users[plan_id]
+
+            return make_response(jsonify({'status': 'Success, user removed, plan deleted'}), 200)
+
+        return make_response(jsonify({'status': 'Success, user removed'}), 200)
     else:
         #Errors
-
         #Bad plan id
         if apikey == APIKEY:
             if plan_id not in plans.keys():
                 return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
+            #bad user_id
+            else:
+                return make_response(jsonify({'error': 'Username doesn\'t exist'}), 404)
 
         #Bad API key
         else:
