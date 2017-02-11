@@ -11,23 +11,21 @@ from BarCrawlrServer.model.place import place
 """
 class plan:
 
-    def __init__(self,thePlan):
+    def __init__(self,aPlan):
 
         try:
 
-            plan = json.loads(thePlan)
-
-            self.name = plan["name"]
+            self.name = aPlan["name"]
 
             self.places = []
         
-            for Place in plan["places"]:
+            for Place in aPlan["places"]:
                 self.places.append(place(Place["name"],\
                                         Place["address"],\
                                         Place["lon"],\
                                         Place["lat"]))
 
-        except(KeyError, json.JSONDecodeError):
+        except(KeyError):
             self.name = "INVALID PLAN"
             self.places = []
 

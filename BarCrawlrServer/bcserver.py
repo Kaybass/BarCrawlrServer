@@ -8,34 +8,13 @@ from flask import Flask, jsonify, current_app, make_response, abort, request
 from BarCrawlrServer.model.plan import plan
 from BarCrawlrServer.model.user import user
 
+import json
+
 server = Flask(__name__)
 
-#Example plan/user data we will throw out eventually
-plans = {
-    'AdEc' : plan("{" +\
-                "\"name\":\"Alex's Plan\"," +\
-                "\"places\":[" +\
-                "{" +\
-                "\"name\":\"Joe's Bar\"," +\
-                "\"address\":\"10 King's Street, Burlington, 05401 VT\"," +\
-                "\"lon\":0.0," +\
-                "\"lat\":0.0" +\
-                "}," +\
-                "{" +\
-                "\"name\":\"Bob's Bar\"," +\
-                "\"address\":\"11 King's Street, Burlington, 05401 VT\"," +\
-                "\"lon\":0.1," +\
-                "\"lat\":0.1" +\
-                "}" +\
-                "]" +\
-                "}")\
-}
-users = {
-    'AdEc' : {
-        "Alex" : user("Alex",0.0,0.0),
-        "Joe" : user("Joe",0.1,0.1)
-    }
-}
+#Dictionaries to store plan and user data
+plans = {}
+users = {}
 
 #DEFAULT SETTINGS
 APIKEY = "bingobangobongo"
@@ -66,15 +45,18 @@ If the plan is invalid it will return an error
 @server.route('/addplan', methods=['POST'])
 def add_plan():
 
+    apikey = request.args.get('apikey')
     user_nick = request.args.get('nick')
     user_lon = request.args.get('lon')
     user_lat = request.args.get('lat')
 
-    if apikey == APIKEY and request.Json and 'name' in request.Json:
-        newPlan = plan(request.Json)
+    if request.method == 'POST' and apikey == APIKEY and\
+        request.get_json() and 'name' in request.get_json():
+
+        newPlan = plan(request.get_json())
 
         if newPlan.name != "INVALID PLAN":
-            code = cm.createCodeForPlan()
+            code = cm.createCodeForPlan(plans)
 
             users[code] = {user_nick : user(user_nick,user_lon,user_lat)}
             plans[code] = newPlan
@@ -234,6 +216,5 @@ def index():
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
-#"Production deployment"
 if __name__ == '__main__':
     server.run(port=PORT,debug=False)

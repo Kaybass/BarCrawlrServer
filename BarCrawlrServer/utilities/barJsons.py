@@ -30,4 +30,6 @@ def createGetPlanJson(aPlan,users):
     return json
 
 def createAddPlanJson(code,aPlan,users):
-    return ""
+    return '{"code":"' + code +\
+        '","plan":' + aPlan.jsonify() +\
+        ',"users":' + createUsersJsonFromDict(users) + '}'

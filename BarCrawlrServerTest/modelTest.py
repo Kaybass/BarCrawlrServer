@@ -4,6 +4,8 @@ from BarCrawlrServer.model.place import place
 from BarCrawlrServer.model.plan import plan
 from BarCrawlrServer.model.user import user
 
+import json
+
 myPlan = "{" +\
                 "\"name\":\"Alex's Plan\"," +\
                 "\"places\":[" +\
@@ -38,7 +40,7 @@ class Test_modelTest(unittest.TestCase):
         self.assertEquals(myPlace,thePlace.jsonify())
 
     def test_plan(self):
-        aPlan = plan(myPlan)
+        aPlan = plan(json.loads(myPlan))
 
         self.assertEquals(myPlan,aPlan.jsonify())
 
