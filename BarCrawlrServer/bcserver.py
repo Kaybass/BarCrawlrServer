@@ -1,6 +1,7 @@
 import json
 
 import BarCrawlrServer.utilities.barJsons as barJsons
+import BarCrawlrServer.utilities.codeMaker as cm
 
 from flask import Flask, jsonify, current_app, make_response, abort, request
 
@@ -35,6 +36,7 @@ users = {
         "Joe" : user("Joe",0.1,0.1)
     }
 }
+
 #DEFAULT SETTINGS
 APIKEY = "bingobangobongo"
 INDEX_MESSAGE = ""
@@ -51,7 +53,7 @@ with open('./settings/settings.json','r') as jsonFile:
         print("WARNING SETTINGS FILE COULD NOT BE LOADED, RUNNING ON DEFAULTS")
 
 """
-barcrawlrserver/addplan(apikey)
+barcrawlrserver/addplan(apikey,nick,lon,lat)
 
 This target exists so that a client can add a plan to the server
 
@@ -63,8 +65,25 @@ If the plan is invalid it will return an error
 """
 @server.route('/addplan', methods=['POST'])
 def add_plan():
-    if apikey == APIKEY:
-        return "",201
+
+    user_nick = request.args.get('nick')
+    user_lon = request.args.get('lon')
+    user_lat = request.args.get('lat')
+
+    if apikey == APIKEY and request.Json and 'name' in request.Json:
+        newPlan = plan(request.Json)
+
+        if newPlan.name != "INVALID PLAN":
+            code = cm.createCodeForPlan()
+
+            users[code] = {user_nick : user(user_nick,user_lon,user_lat)}
+            plans[code] = newPlan
+
+            return barJsons.createAddPlanJson(code,plans[code],users[code])
+
+        else:
+            #Bad Plan
+            return make_response(jsonify({'error': 'Invalid Plan'}), 400)
     else:
         #Bad Key
         return make_response(jsonify({'error': 'Bad API key'}), 400)
@@ -215,6 +234,6 @@ def index():
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
-#Production deployment
+#"Production deployment"
 if __name__ == '__main__':
     server.run(port=PORT,debug=False)

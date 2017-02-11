@@ -45,7 +45,7 @@
     <Compile Include="BarCrawlrServer\utilities\barJsons.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BarCrawlrServer\utilities\jankBox.py">
+    <Compile Include="BarCrawlrServer\utilities\codeMaker.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BarCrawlrServer\utilities\__init__.py">

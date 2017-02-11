@@ -28,3 +28,6 @@ def createGetPlanJson(aPlan,users):
     json += '}'
 
     return json
+
+def createAddPlanJson(code,aPlan,users):
+    return ""
