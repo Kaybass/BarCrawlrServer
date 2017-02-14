@@ -19,14 +19,12 @@ users = {}
 #DEFAULT SETTINGS
 APIKEY = "bingobangobongo"
 INDEX_MESSAGE = ""
-PORT = 4000
 
 #load settings
 with open('./settings/settings.json','r') as jsonFile:
     try:
         theJson = json.load(jsonFile)
         APIKEY = theJson["apikey"]
-        PORT = theJson["port"]
         INDEX_MESSAGE = theJson["indexMessage"]
     except(KeyError, json.JSONDecodeError):
         print("WARNING SETTINGS FILE COULD NOT BE LOADED, RUNNING ON DEFAULTS")
@@ -215,6 +213,3 @@ def index():
 @server.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
-
-if __name__ == '__main__':
-    server.run(port=PORT,debug=False)
