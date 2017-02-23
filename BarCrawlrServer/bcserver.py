@@ -29,6 +29,7 @@ with open('./settings/settings.json','r') as jsonFile:
     except(KeyError, json.JSONDecodeError):
         print("WARNING SETTINGS FILE COULD NOT BE LOADED, RUNNING ON DEFAULTS")
 
+
 """
 barcrawlrserver/addplan(apikey,nick,lon,lat)
 
@@ -63,10 +64,10 @@ def add_plan():
 
         else:
             #Bad Plan
-            return make_response(jsonify({'error': 'Invalid Plan'}), 400)
+            return make_response(jsonify({'error': 'Invalid Plan'}), 200)
     else:
         #Bad Key
-        return make_response(jsonify({'error': 'Bad API key'}), 400)
+        return make_response(jsonify({'error': 'Bad API key'}), 200)
 
 
 """
@@ -102,13 +103,13 @@ def get_plan():
         #Bad plan id
         if apikey == APIKEY:
             if plan_id not in plans.keys():
-                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
+                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 200)
             #bad user id
             else:
-                return make_response(jsonify({'error': 'Username already exists'}), 404)
+                return make_response(jsonify({'error': 'Username already exists'}), 200)
         #Bad API key
         else:
-            return make_response(jsonify({'error': 'Bad API key'}), 401)
+            return make_response(jsonify({'error': 'Bad API key'}), 200)
 
     #something went horribly wrong
     abort(400)
@@ -146,14 +147,14 @@ def update_info():
         #Bad plan id
         if apikey == APIKEY:
             if plan_id not in plans.keys():
-                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
+                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 200)
             #bad user_id
             else:
-                return make_response(jsonify({'error': 'Username doesn\'t exist'}), 404)
+                return make_response(jsonify({'error': 'Username doesn\'t exist'}), 200)
 
         #Bad API key
         else:
-            return make_response(jsonify({'error': 'Bad API key'}), 401)
+            return make_response(jsonify({'error': 'Bad API key'}), 200)
 
     #something went horribly wrong
     abort(400)
@@ -192,14 +193,14 @@ def user_disconnect():
         #Bad plan id
         if apikey == APIKEY:
             if plan_id not in plans.keys():
-                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 404)
+                return make_response(jsonify({'error': 'Plan doesn\'t exist'}), 200)
             #bad user_id
             else:
-                return make_response(jsonify({'error': 'Username doesn\'t exist'}), 404)
+                return make_response(jsonify({'error': 'Username doesn\'t exist'}), 200)
 
         #Bad API key
         else:
-            return make_response(jsonify({'error': 'Bad API key'}), 401)
+            return make_response(jsonify({'error': 'Bad API key'}), 200)
 
     #something went horribly wrong
     abort(400)

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>fafa080b-7baa-4494-a7f3-d8ef9f2cda4a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>runServer.py</StartupFile>
+    <StartupFile>app.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -30,6 +30,7 @@
     <Compile Include="BarCrawlrServerTest\serverTest.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app.py" />
     <Compile Include="BarCrawlrServer\model\place.py">
       <SubType>Code</SubType>
     </Compile>
@@ -49,9 +50,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BarCrawlrServer\utilities\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="runServer.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BarCrawlrServer\__init__.py">

@@ -19,7 +19,7 @@ def createUsersJsonFromDict(users):
 
 def createGetPlanJson(aPlan,users):
 
-    json = '{"plan":"'
+    json = '{"plan":'
 
     json += aPlan.jsonify()
 
