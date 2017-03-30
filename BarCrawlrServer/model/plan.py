@@ -47,4 +47,3 @@ class plan:
         jsonToReturn += ']}'
 
         return jsonToReturn
-                
