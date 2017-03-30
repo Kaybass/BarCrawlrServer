@@ -1,5 +1,6 @@
 import json
 
+from datetime import datetime
 
 """
  * User is the object used to represent the
@@ -14,9 +15,16 @@ class user:
         self.name = name
         self.lon = float(lon)
         self.lat = float(lat)
+        self.dateLastTouched = datetime.now()
 
     def jsonify(self):
 
         return '{"name":"' + self.name +\
             '","lon":' + str(self.lon) +\
             ',"lat":' + str(self.lat) + '}'
+
+    def touched(self):
+        self.dateLastTouched = datetime.now()
+
+    def getTouched(self):
+        return self.dateLastTouched
