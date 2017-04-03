@@ -2,10 +2,10 @@ class Logger:
     
     log = None
 
-    def log(string):
+    def log(self,string):
         
         self.log += string
 
-    def getLog:
+    def getLog(self):
 
         return self.log

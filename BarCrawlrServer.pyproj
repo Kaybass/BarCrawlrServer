@@ -24,19 +24,20 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BarCrawlrServerTest\cullingTest.py">
+    <Compile Include="BarCrawlrServerTest\thread\cullingTest.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BarCrawlrServerTest\loggerTest.py">
+    <Compile Include="BarCrawlrServerTest\utilities\loggerTest.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BarCrawlrServerTest\modelTest.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BarCrawlrServerTest\serverTest.py">
+    <Compile Include="BarCrawlrServerTest\model\placeTest.py" />
+    <Compile Include="BarCrawlrServerTest\model\planTest.py" />
+    <Compile Include="BarCrawlrServerTest\model\userTest.py" />
+    <Compile Include="BarCrawlrServerTest\bcserverTest.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app.py" />
+    <Compile Include="BarCrawlrServerTest\utilities\barJsonsTest.py" />
     <Compile Include="BarCrawlrServer\model\place.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,6 +59,8 @@
     <Compile Include="BarCrawlrServer\utilities\codeMaker.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BarCrawlrServer\thread\culler.py" />
+    <Compile Include="BarCrawlrServer\utilities\logger.py" />
     <Compile Include="BarCrawlrServer\utilities\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +70,9 @@
     <Compile Include="BarCrawlrServer\bcserver.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BarCrawlrServerTest\model\" />
+    <Folder Include="BarCrawlrServerTest\thread\" />
+    <Folder Include="BarCrawlrServerTest\utilities\" />
     <Folder Include="BarCrawlrServer\" />
     <Folder Include="BarCrawlrServer\model\" />
     <Folder Include="BarCrawlrServer\thread\" />
