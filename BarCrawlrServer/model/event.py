@@ -18,21 +18,25 @@ class eventCodes(Enum):
     error_bad_plan_id = auto()
 
 """
- Events need to be given ip addresses like (events[code] + request.environ['REMOTE_ADDR'])
+ Events need to be given ip addresses like (events[code].format(request.environ['REMOTE_ADDR'])
+
+ Event objects get initialized like event(eventTypes[eventCodes.code], events[eventCodes.code].format(request.environ['REMOTE_ADDR']))
+
+ long I know but idc
 """
 events = {
     #Success log codes
-    eventCodes.successful_update : 'User successfully updated info from ip: '
-    ,eventCodes.successful_plan_creation : 'User successfully added plan from ip: '
-    ,eventCodes.successful_user_addition : 'User successfully added info from ip: '
-    ,eventCodes.successful_user_deletion : 'User successfully deleted info from ip: '
-    ,eventCodes.successful_plan_deletion : 'User successfully deleted plan from ip: '
+    eventCodes.successful_update : 'User successfully updated info from ip: {0}'
+    ,eventCodes.successful_plan_creation : 'User successfully added plan from ip: {0}'
+    ,eventCodes.successful_user_addition : 'User successfully added info from ip: {0}'
+    ,eventCodes.successful_user_deletion : 'User successfully deleted info from ip: {0}'
+    ,eventCodes.successful_plan_deletion : 'User successfully deleted plan from ip: {0}'
 
     #Error log codes
-    ,eventCodes.error_four_oh_four : '404 error from ip: '
-    ,eventCodes.error_bad_api_key : 'Bad api key from ip: '
-    ,eventCodes.error_bad_username : 'Bad username from ip: '
-    ,eventCodes.error_bad_plan_id : 'Bad plan name from ip: '
+    ,eventCodes.error_four_oh_four : '404 error from ip: {0}'
+    ,eventCodes.error_bad_api_key : 'Bad api key from ip: {0}'
+    ,eventCodes.error_bad_username : 'Bad username from ip: {0}'
+    ,eventCodes.error_bad_plan_id : 'Bad plan name from ip: {0}'
 }
 
 eventsTypes = {
