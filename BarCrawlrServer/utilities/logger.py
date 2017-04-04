@@ -1,11 +1,17 @@
 class Logger:
-    
-    log = None
 
-    def log(self,string):
+    def __init__(self,filename):
         
-        self.log += string
+        self.filename = filename
+
+    def log(self, event):
+        with open(self.filename,'a') as file:
+            file.write(event.toString())
 
     def getLog(self):
+        log = None
 
-        return self.log
+        with open(self.filename,'r') as file:
+            log = file.read()
+
+        return log

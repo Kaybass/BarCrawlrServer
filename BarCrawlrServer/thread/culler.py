@@ -1,17 +1,11 @@
 from BarCrawlrServer.model.plan import plan
 from BarCrawlrServer.model.user import user
 
-class culler:
-    
-    def __init__(users, plans):
-        
-        self.users = users
-        self.plans = plans
-
-    def start:
-
-        """Do start stuff here"""
-    
-    def start:
-    
-        """Do stop stuff here"""
+def userCull(users, plans):
+    for key, User in Users.items():
+        for key2, User2 in User.items():
+            if (User2.getTouched() + datetime.timedelta(hours=1)) < datetime.now():
+                del Users[key2]
+        if len(plans[key]) == 0:
+            del plans[key]
+    return
