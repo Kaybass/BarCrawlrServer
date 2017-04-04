@@ -1,21 +1,19 @@
-from enum import Enum, auto
-
-
+from enum import Enum#, auto
 
 class eventCodes(Enum):
 
     #Success log codes
-    successful_update = auto()
-    successful_plan_creation = auto()
-    successful_user_addition = auto()
-    successful_user_deletion = auto()
-    successful_plan_deletion = auto()
+    successful_update = 0#auto()
+    successful_plan_creation = 1#auto()
+    successful_user_addition = 2#auto()
+    successful_user_deletion = 3#auto()
+    successful_plan_deletion = 4#auto()
 
     #Error log codes
-    error_four_oh_four = auto()
-    error_bad_api_key = auto()
-    error_bad_username = auto()
-    error_bad_plan_id = auto()
+    error_four_oh_four = 5#auto()
+    error_bad_api_key = 6#auto()
+    error_bad_username = 7#auto()
+    error_bad_plan_id = 8#auto()
 
 """
  Events need to be given ip addresses like (events[code].format(request.environ['REMOTE_ADDR'])
@@ -63,6 +61,6 @@ class event(object):
         self.eventMessage = eventMessage
 
     def toString(self):
-        return '"' + eventType + '": ' + eventMessage
+        return '"' + self.eventType + '": ' + self.eventMessage
 
 

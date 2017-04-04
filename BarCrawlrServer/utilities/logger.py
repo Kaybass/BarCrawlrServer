@@ -6,14 +6,15 @@ class Logger:
 
     def log(self, event):
         with open(self.filename,'a') as file:
-            file.write(event.toString())
+            file.write(event.toString() + '\n')
 
         return
 
     def getLog(self):
-        log = None
+        log = []
 
         with open(self.filename,'r') as file:
-            log = file.read()
+            for line in file:
+                log.append(line)
 
         return log

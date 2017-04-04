@@ -38,6 +38,7 @@
     </Compile>
     <Compile Include="app.py" />
     <Compile Include="BarCrawlrServerTest\utilities\barJsonsTest.py" />
+    <Compile Include="BarCrawlrServer\model\event.py" />
     <Compile Include="BarCrawlrServer\model\place.py">
       <SubType>Code</SubType>
     </Compile>

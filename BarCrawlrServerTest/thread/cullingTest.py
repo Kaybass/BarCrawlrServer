@@ -4,9 +4,9 @@ from BarCrawlrServer.model.place import place
 from BarCrawlrServer.model.plan import plan
 from BarCrawlrServer.model.user import user
 
-from BarCrawlrServer.thread.culler import culler
+from BarCrawlrServer.thread.culler import userCull
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import json
 
@@ -36,19 +36,18 @@ class Test_cullingTest(unittest.TestCase):
         plans = {}
 
         users["heck"] = {"boi" : user("boi",60,80)}
-        plans["heck"] = plan(myPlan)
+        plans["heck"] = plan(json.loads(myPlan))
 
-        cull = culler(users,plans)
+        
+        users["heck"]["boi"].dateLastTouched = datetime.now() - timedelta(hours=10)
 
-        cull.start() #maybe start(time)?
-
-        users["heck"]["boi"].dateLastTouched = datetime.now - 30
+        userCull(users,plans)
 
         #sleep(2)
 
-        self.assertEquals(users.exists("heck"),False)
+        self.assertEquals('heck' in users.keys(),False)
 
-        cull.stop()
+        
 
 
 if __name__ == '__main__':
