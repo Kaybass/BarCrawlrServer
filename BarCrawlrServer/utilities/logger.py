@@ -8,6 +8,8 @@ class Logger:
         with open(self.filename,'a') as file:
             file.write(event.toString())
 
+        return
+
     def getLog(self):
         log = None
 
