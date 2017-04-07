@@ -77,8 +77,8 @@ This target allows other clients to connect to a plan that
 exists on the server
 
 If the plan exists on the server the client will be sent the
-list of users and the plan the code is attached to. The Client'
-also has to sen their information
+list of users and the plan the code is attached to. The client
+also has to send their information
 
 If it fails the client will be returned an error
 """
