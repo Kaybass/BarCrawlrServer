@@ -20,9 +20,9 @@ class Test_parserTest(unittest.TestCase):
         
         prsr = Parser(logger)
 
-
+        jsonEvent = {
         #self.assertEquals(logger.getLog()[len(logger.getLog()) - 1].replace('\n',''),evnt.toString())
-        self.assertEquals(Prsr.parse(), Parser.parse(evnt.toString()))
+        self.assertEquals(prsr.parse(), jsonEvent)
 
 if __name__ == '__main__':
     unittest.main()
