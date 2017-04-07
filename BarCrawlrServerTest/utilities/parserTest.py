@@ -1,6 +1,6 @@
 import unittest
 
-from BarCrawlrServer.utilities.parser import Parser
+#from BarCrawlrServer.utilities.parser import Parser
 from BarCrawlrServer.utilities.logger import Logger
 from BarCrawlrServer.model.event import event, eventCodes, events, eventsTypes
 
@@ -10,7 +10,7 @@ from BarCrawlrServer.model.event import event, eventCodes, events, eventsTypes
 #     the logger for the graph.
 #########################################
 class Test_parserTest(unittest.TestCase):
-    def test_A(self):
+    def test_parser(self):
         evnt = event(eventsTypes[eventCodes.successful_plan_creation]\
                      ,events[eventCodes.successful_plan_creation].format("kek"))
 
@@ -20,8 +20,8 @@ class Test_parserTest(unittest.TestCase):
         
         prsr = Parser(logger)
 
-        jsonEvent = {
-        #self.assertEquals(logger.getLog()[len(logger.getLog()) - 1].replace('\n',''),evnt.toString())
+        jsonExpected = '{"eventType":"update","eventCode":"success","frequency":1}'
+
         self.assertEquals(prsr.parse(), jsonEvent)
 
 if __name__ == '__main__':
